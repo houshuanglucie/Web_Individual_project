@@ -32,10 +32,10 @@ class Task(models.Model):
 
 
 class Journal(models.Model):
-    date = models.DateField(null=True)
-    entry = models.CharField(max_length=300)
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    task = models.ForeignKey('Task', on_delete=models.CASCADE)
+    date = models.DateField(null=True, verbose_name="date")
+    entry = models.CharField(max_length=300, verbose_name="entry")
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name="author")
+    task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name="task")
 
     def __str__(self):
         return self.entry

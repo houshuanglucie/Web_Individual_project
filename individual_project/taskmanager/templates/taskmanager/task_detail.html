@@ -15,6 +15,10 @@
 </head>
 <body>
 
+<div>
+    <a href="{% url 'add_journal' %}"><button>Add a new journal</button></a>
+</div>
+
 <h1>{{ task_get.project }}</h1>
 <h2>{{ task_get }}</h2>
 <p>{{ task_get.description }}</p>
@@ -42,6 +46,14 @@
 
 <table>
     <p><b>History</b></p>
+
+    <div>
+        <tr style="height: 50px">
+            <th>Author</th>
+            <th>Date</th>
+            <th>Entry</th>
+        </tr>
+    </div>
 
     <div>
     {% for journal in journal_list %}

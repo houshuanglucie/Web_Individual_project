@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add journal</title>
+</head>
+<body>
+
+  <p>Add a new journal</p>
+
+  <form action="{% url 'add_journal' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Add</button>
+  </form>
+
+</body>
+</html>
