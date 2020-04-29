@@ -3,10 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>One Project</title>
+    <style>
+        table, tr, td, th
+        {
+            border-collapse: collapse;
+            border: 1px solid gray;
+            padding-left: 10px;
+            padding-right: 30px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>One Project</h1>
+<h1>{{ project_get }}</h1>
+
+<table>
+    <tr style="height: 50px">
+        <th>Task</th>
+        <th>Assignee</th>
+        <th>Start date</th>
+        <th>Due date</th>
+        <th>Modify</th>
+    </tr>
+
+    {% for task in task_list %}
+        <tr>
+            <td>
+                <a href="{% url 'task' task.id %}" target="_self">{{ task.name }}</a>
+            </td>
+            <td>
+                <p>{{ task.assignee }}</p>
+            </td>
+            <td>
+                <p>{{ task.start_date }}</p>
+            </td>
+            <td>
+                <p>{{ task.due_date }}</p>
+            </td>
+            <td>
+                <a href="#" target="_self">modify</a>
+            </td>
+        </tr>
+
+    {% empty %}
+        <div>
+            <p>No task in the project</p>
+        </div>
+    {% endfor %}
+</table>
 
 </body>
 </html>

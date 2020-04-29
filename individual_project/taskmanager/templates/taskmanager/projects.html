@@ -3,12 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
+    <style>
+        table, tr, td, th
+        {
+            border-collapse: collapse;
+            border: 1px solid gray;
+            padding-left: 10px;
+            padding-right: 30px;
+        }
+    </style>
 </head>
 <body>
 
 <h1>Projects</h1>
 
-
+<table>
+    {% for project in project_list %}
+        <tr>
+            <td>
+                <a href="{% url 'project' project.id %}" target="_self">{{ project.name }}</a>
+            </td>
+        </tr>
+    {% empty %}
+        <div>
+            <p>No project in your workspace</p>
+        </div>
+    {% endfor %}
+</table>
 
 </body>
 </html>

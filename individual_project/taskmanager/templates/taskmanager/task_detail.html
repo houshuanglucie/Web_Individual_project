@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test details</title>
+    <style>
+        table, tr, td, th
+        {
+            border-collapse: collapse;
+            border: 1px solid gray;
+            padding-left: 10px;
+            padding-right: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>{{ task_get.project }}</h1>
+<h2>{{ task_get }}</h2>
+<p>{{ task_get.description }}</p>
+
+<table>
+    <div>
+        <tr>
+            <td><b>Assignee</b></td>
+            <td>{{ task_get.assignee }}</td>
+        </tr>
+        <tr>
+            <td><b>Start date</b></td>
+            <td>{{ task_get.start_date }}</td>
+        </tr>
+        <tr>
+            <td><b>Due date</b></td>
+            <td>{{ task_get.due_date }}</td>
+        </tr>
+        <tr>
+            <td><b>Status</b></td>
+            <td>{{ task_get.status }}</td>
+        </tr>
+    </div>
+</table>
+
+<table>
+    <p><b>History</b></p>
+
+    <div>
+    {% for journal in journal_list %}
+        <tr>
+            <td>
+                <p>{{ journal.author }}</p>
+            </td>
+            <td>
+                <p>{{ journal.date }}</p>
+            </td>
+            <td>
+                <p>{{ journal.entry }}</p>
+            </td>
+        </tr>
+    </div>
+
+    {% empty %}
+        <div>
+            <p>No history in the task</p>
+        </div>
+    {% endfor %}
+</table>
+
+</body>
+</html>
