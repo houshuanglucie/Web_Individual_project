@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 # from django.http import HttpResponseRedirect, Http404
 # from django.contrib.auth.decorators import login_required
-from .forms import ConnectionForm, JournalForm
+from .forms import ConnectionForm, JournalForm, TaskForm
 from .models import Project, Task, Journal
 
 
@@ -65,4 +65,19 @@ def add_journal(request):
             journal_list = Journal.objects.filter(task=task_get)
             return render(request, 'taskmanager/task_detail.html', locals())
     return render(request, 'taskmanager/add_journal.html', locals())
+
+
+# Add a new task of a project
+def add_task(request):
+    if request.method != 'POST':
+        form = TaskForm()
+    else:
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            project_get = form.cleaned_data['project']
+            task_list = Task.objects.filter(project=project_get)
+            return render(request, 'taskmanager/project.html', locals())
+    return render(request, 'taskmanager/add_task.html', locals())
+
 

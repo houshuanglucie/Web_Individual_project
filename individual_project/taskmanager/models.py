@@ -19,13 +19,13 @@ class Status(models.Model):
 
 class Task(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE, verbose_name="project")
-    name = models.CharField(max_length=300, verbose_name="task name")
-    description = models.CharField(max_length=300, verbose_name="task description")
-    assignee = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name="task assignee")
-    start_date = models.DateField(null=True, verbose_name="task start time")
-    due_date = models.DateField(null=True, verbose_name="task due time")
-    priority = models.IntegerField()
-    status = models.ForeignKey('Status', on_delete=models.CASCADE, verbose_name="task status")
+    name = models.CharField(max_length=300, verbose_name="name")
+    description = models.CharField(max_length=300, verbose_name="description")
+    assignee = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name="assignee")
+    start_date = models.DateField(null=True, verbose_name="start_date")
+    due_date = models.DateField(null=True, verbose_name="due_date")
+    priority = models.IntegerField(verbose_name="priority")
+    status = models.ForeignKey('Status', on_delete=models.CASCADE, verbose_name="status")
 
     def __str__(self):
         return self.name

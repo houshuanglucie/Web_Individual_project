@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add journal</title>
+    <title>Add task</title>
 </head>
 <body>
 
-<p>Add a new journal</p>
+<p>Add a new task</p>
 
-<form action="{% url 'add_journal' %}" method='post'>
+<form action="{% url 'add_task' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Add</button>
