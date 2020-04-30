@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
-# from django.http import HttpResponseRedirect, Http404
-# from django.contrib.auth.decorators import login_required
-from .forms import ConnectionForm, JournalForm, TaskForm, EditTaskForm
+from .forms import ConnectionForm, JournalForm, TaskForm
 from .models import Project, Task, Journal
 
 
@@ -87,9 +85,9 @@ def edit_task(request, task_id):
     edit = True
     task_before = Task.objects.get(id=task_id)
     if request.method != 'POST':
-        form = EditTaskForm(instance=task_before)
+        form = TaskForm(instance=task_before)
     else:
-        form = EditTaskForm(data=request.POST, instance=task_before)
+        form = TaskForm(data=request.POST, instance=task_before)
         if form.is_valid():
             form.save()
             project_get = form.cleaned_data['project']

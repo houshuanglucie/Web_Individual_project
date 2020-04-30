@@ -19,14 +19,4 @@ class TaskForm(forms.ModelForm):
         fields = ['project', 'name', 'description', 'assignee', 'start_date', 'due_date', 'priority', 'status']
 
 
-class EditTaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ['project', 'name', 'description', 'assignee', 'start_date', 'due_date', 'priority', 'status']
-
-        def __init__(self, *args, **kwargs):
-            super(EditTaskForm, self).__init__(*args, **kwargs)
-            for field_name in self.base_fields:
-                field = self.base_fields[field_name]
-                field.widget.attrs.update({"class":"form-control"})
 
