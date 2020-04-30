@@ -2,17 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add task</title>
+    <title>Modify task</title>
 </head>
 <body>
 
-<p>Add a new task</p>
+{% if edit %}
+
+<p><strong>Edit a task!</strong></p>
+
+<form action="{% url 'edit_task' task.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Edit</button>
+</form>
+
+{% else %}
+
+<p><strong>Add a new task!</strong></p>
 
 <form action="{% url 'add_task' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Add</button>
 </form>
+
+{% endif %}
 
 </body>
 </html>

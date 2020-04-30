@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>One Project</title>
+    <title>Project</title>
     <style>
         table, tr, td, th
         {
@@ -45,7 +45,7 @@
                 <p>{{ task.due_date }}</p>
             </td>
             <td>
-                <a href="#" target="_self">modify</a>
+                <a href="{% url 'edit_task' task.id %}" target="_self">modify</a>
             </td>
         </tr>
 
