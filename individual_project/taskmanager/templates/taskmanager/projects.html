@@ -1,35 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Projects</title>
-    <style>
-        table, tr, td, th
-        {
-            border-collapse: collapse;
-            border: 1px solid gray;
-            padding-left: 10px;
-            padding-right: 30px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Projects {% endblock %}
+
+{% block welcome %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+{% endblock %}
+
+<!-- Logout button -->
+{% block logout %}
+<div style="float: right" >
+<!--    <a href="/accounts/logout">-->
+<!--        <span class="glyphicon glyphicon-log-out" style="color: rgb(14, 106, 194)"></span>-->
+<!--    </a>-->
+    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Navigation Bar -->
+<div>
+    <a href="{% url 'projects' %}" target="_self">Projects</a>
+    <hr>
+</div>
 
 <h1>Projects</h1>
 
-<table>
+<!-- List of all projects of this user -->
+<table class="table table-hover">
     {% for project in project_list %}
-        <tr>
-            <td>
-                <a href="{% url 'project' project.id %}" target="_self">{{ project.name }}</a>
-            </td>
-        </tr>
+    <tbody>
+    <tr>
+        <td>
+            <a href="{% url 'project' project.id %}" target="_self">{{ project.name }}</a>
+        </td>
+    </tr>
+    </tbody>
     {% empty %}
-        <div>
+        <tr>
             <p>No project in your workspace</p>
-        </div>
+        </tr>
     {% endfor %}
 </table>
 
-</body>
-</html>
+{% endblock %}

@@ -1,54 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Project</title>
-    <style>
-        table, tr, td, th
-        {
-            border-collapse: collapse;
-            border: 1px solid gray;
-            padding-left: 10px;
-            padding-right: 30px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block title %} Project {% endblock %}
+
+{% block welcome %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+{% endblock %}
+
+<!-- Logout button -->
+{% block logout %}
+<div style="float: right" >
+    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Navigation Bar -->
 <div>
-    <a href="{% url 'add_task' %}"><button>Add a new task</button></a>
+    <a href="{% url 'projects' %}" target="_self">Projects</a>
+    <a href="{% url 'project' project_get.id %}" target="_self">/ {{ project_get.name }}</a>
+    <hr>
+</div>
+
+<!-- Button for add a new task -->
+<div style="float: right" >
+    <a href="{% url 'add_task' %}" class="btn btn-primary">Add a task</a>
 </div>
 
 <h1>{{ project_get }}</h1>
 
-<table>
-    <tr style="height: 50px">
+<!-- List of all tasks in this project -->
+<table class="table table-hover" style="font-size: 18px">
+    <thead>
+    <tr>
         <th>Task</th>
         <th>Assignee</th>
         <th>Start date</th>
         <th>Due date</th>
-        <th>Modify</th>
+        <th>  </th>
     </tr>
-
+    </thead>
+    <tbody>
     {% for task in task_list %}
         <tr>
             <td>
                 <a href="{% url 'task' task.id %}" target="_self">{{ task.name }}</a>
             </td>
-            <td>
-                <p>{{ task.assignee }}</p>
+            <td style="text-transform: capitalize">
+                <span class="badge badge-primary">{{ task.assignee.first_name }} {{ task.assignee.last_name }}</span>
             </td>
-            <td>
+            <td style="font-style: italic">
                 <p>{{ task.start_date }}</p>
             </td>
-            <td>
+            <td style="font-style: italic">
                 <p>{{ task.due_date }}</p>
             </td>
             <td>
-                <a href="{% url 'edit_task' task.id %}" target="_self">modify</a>
+<!--                <a href="{% url 'edit_task' task.id %}" target="_self">-->
+<!--                    <span class="glyphicon glyphicon-edit"></span>-->
+<!--                </a>-->
+                <a href="{% url 'edit_task' task.id %}" target="_self">Edit</a>
             </td>
         </tr>
-
+    </tbody>
     {% empty %}
         <div>
             <p>No task in the project</p>
@@ -56,5 +72,4 @@
     {% endfor %}
 </table>
 
-</body>
-</html>
+{% endblock %}

@@ -1,43 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login, logout
-from .forms import ConnectionForm, JournalForm, TaskForm
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .forms import LoginForm, JournalForm, TaskForm
 from .models import Project, Task, Journal
 
 
-# connection view
-def connection(request):
-    error = False
-
-    form = ConnectionForm(request.POST or None)
-    if form.is_valid():
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        user = authenticate(username=username, password=password)
-        if user and user.is_active:
-            login(request, user)
-            project_list = user.project_set.all()
-            return render(request, 'taskmanager/projects.html', locals())
-        else:
-            error = True
-
-    return render(request, 'taskmanager/login.html', locals())
-
-
-# disconnection view
-def disconnection(request):
-    logout(request)
-    return render(request, 'taskmanager/login.html', locals())
-
-
-# # list of projects
-# @login_required
-# def projects(request, user_id):
-#     user = get_object_or_404(Project, id=user_id)
-#     project_list = Project.objects.filter(members__contains=user)
-#     return render(request, 'taskmanager/projects.html', locals())
+# list of projects
+@login_required
+def projects(request):
+    project_list = request.user.project_set.all()
+    return render(request, 'taskmanager/projects.html', locals())
 
 
 # List of tasks in one project
+@login_required
 def project(request, project_id):
     project_get = get_object_or_404(Project, id=project_id)
     task_list = Task.objects.filter(project=project_get)
@@ -45,6 +20,7 @@ def project(request, project_id):
 
 
 # Task details view
+@login_required
 def task(request, task_id):
     task_get = get_object_or_404(Task, id=task_id)
     journal_list = Journal.objects.filter(task=task_get)
@@ -52,6 +28,7 @@ def task(request, task_id):
 
 
 # Add a new journal of a task
+@login_required
 def add_journal(request):
     if request.method != 'POST':
         form = JournalForm()
@@ -66,6 +43,7 @@ def add_journal(request):
 
 
 # Add a new task of a project
+@login_required
 def add_task(request):
     edit = False
     if request.method != 'POST':
@@ -81,6 +59,7 @@ def add_task(request):
 
 
 # Edit a task
+@login_required
 def edit_task(request, task_id):
     edit = True
     task_before = Task.objects.get(id=task_id)
@@ -93,12 +72,12 @@ def edit_task(request, task_id):
             project_get = form.cleaned_data['project']
             task_list = Task.objects.filter(project=project_get)
             return render(request, 'taskmanager/project.html', locals())
-            # return redirect('app1:article')
     context = {'form': form, 'task': task_before, 'edit': edit}
     return render(request, 'taskmanager/add_task.html', context)
 
 
 # Delete a task
+# @login_required
 # def del_task(request, task_id):
 #     delete = True
 #     task_current = Task.objects.get(id=task_id)

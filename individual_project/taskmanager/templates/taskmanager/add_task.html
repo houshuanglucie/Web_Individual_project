@@ -1,21 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Modify task</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block title %} Add a new task {% endblock %}
+
+{% block welcome %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+{% endblock %}
+
+{% block content %}
+
+<!--To edit a task-->
 {% if edit %}
 
-<p><strong>Edit a task!</strong></p>
+<!-- Navigation Bar -->
+<div>
+    <a href="{% url 'projects' %}" target="_self">Projects</a>
+    <a href="{% url 'project' task.project.id %}" target="_self">/ {{ task.project.name }}</a>
+    <a href="{% url 'task' task.id %}" target="_self">/ {{ task.name }}</a>
+    <hr>
+</div>
+
+<h1>{{ task.project }}</h1>
+<h3>Edit the task</h3>
 
 <form action="{% url 'edit_task' task.id %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Edit</button>
+    <button name="submit">Save</button>
 </form>
 
+<!--To add a new task-->
 {% else %}
 
 <p><strong>Add a new task!</strong></p>
@@ -23,10 +37,9 @@
 <form action="{% url 'add_task' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Add</button>
+    <button name="submit">Save</button>
 </form>
 
 {% endif %}
 
-</body>
-</html>
+{% endblock %}

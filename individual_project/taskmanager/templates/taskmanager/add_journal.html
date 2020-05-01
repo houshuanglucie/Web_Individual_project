@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add journal</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Add a new journal {% endblock %}
+
+{% block welcome %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+{% endblock %}
+
+{% block content %}
 
 <p>Add a new journal</p>
 
 <form action="{% url 'add_journal' %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">Add</button>
+    <button name="submit">Save</button>
 </form>
 
-</body>
-</html>
+{% endblock %}

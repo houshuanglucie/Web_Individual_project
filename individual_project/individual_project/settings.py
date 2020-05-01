@@ -122,5 +122,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = '/connection/'
+LOGIN_REDIRECT_URL = '/taskmanager/projects/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 

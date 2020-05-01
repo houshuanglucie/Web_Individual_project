@@ -1,67 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Task details</title>
-    <style>
-        table, tr, td, th
-        {
-            border-collapse: collapse;
-            border: 1px solid gray;
-            padding-left: 10px;
-            padding-right: 30px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block title %} Task details {% endblock %}
+
+{% block welcome %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+{% endblock %}
+
+<!-- Logout button -->
+{% block logout %}
+<div style="float: right" >
+    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Navigation Bar -->
 <div>
-    <a href="{% url 'add_journal' %}"><button>Add a new journal</button></a>
+    <a href="{% url 'projects' %}" target="_self">Projects</a>
+    <a href="{% url 'project' task_get.project.id %}" target="_self">/ {{ task_get.project.name }}</a>
+    <a href="{% url 'task' task_get.id %}" target="_self">/ {{ task_get.name }}</a>
+    <hr>
+</div>
+
+<!-- Button for add a new journal -->
+<div style="float: right" >
+    <a href="{% url 'add_journal' %}" class="btn btn-primary">Add a journal</a>
 </div>
 
 <h1>{{ task_get.project }}</h1>
-<h2>{{ task_get }}</h2>
-<p>{{ task_get.description }}</p>
+<h3>{{ task_get }}</h3>
+<p>Description : {{ task_get.description }}</p>
 
-<table>
+<!-- List of details of this task -->
+<table class="table">
     <div>
         <tr>
             <td><b>Assignee</b></td>
-            <td>{{ task_get.assignee }}</td>
+            <td style="text-transform: capitalize">
+                <span class="badge badge-primary">{{ task_get.assignee.first_name }} {{ task_get.assignee.last_name }}</span>
+            </td>
         </tr>
         <tr>
             <td><b>Start date</b></td>
-            <td>{{ task_get.start_date }}</td>
+            <td style="font-style: italic">{{ task_get.start_date }}</td>
         </tr>
         <tr>
             <td><b>Due date</b></td>
-            <td>{{ task_get.due_date }}</td>
+            <td style="font-style: italic">{{ task_get.due_date }}</td>
         </tr>
         <tr>
             <td><b>Status</b></td>
-            <td>{{ task_get.status }}</td>
+            <td>
+                <span class="badge badge-warning">{{ task_get.status }}</span>
+            </td>
         </tr>
     </div>
 </table>
 
-<table>
-    <p><b>History</b></p>
+<hr>
 
-    <div>
-        <tr style="height: 50px">
-            <th>Author</th>
-            <th>Date</th>
-            <th>Entry</th>
-        </tr>
-    </div>
+<!-- List of historic journal -->
+<table class="table">
+    <p><b>History</b></p>
 
     <div>
     {% for journal in journal_list %}
         <tr>
             <td>
-                <p>{{ journal.author }}</p>
+                <span class="badge badge-primary">{{ journal.author.first_name }} {{ journal.author.last_name }}</span>
             </td>
-            <td>
+            <td style="font-style: italic">
                 <p>{{ journal.date }}</p>
             </td>
             <td>
@@ -77,5 +88,4 @@
     {% endfor %}
 </table>
 
-</body>
-</html>
+{% endblock %}
