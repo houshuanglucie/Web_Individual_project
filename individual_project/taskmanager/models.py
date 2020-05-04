@@ -19,11 +19,11 @@ class Status(models.Model):
 
 class Task(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE, verbose_name="project")
-    name = models.CharField(max_length=300, verbose_name="name")
+    name = models.CharField(max_length=300, verbose_name="title")
     description = models.CharField(max_length=300, verbose_name="description")
     assignee = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name="assignee")
-    start_date = models.DateField(null=True, verbose_name="start_date")
-    due_date = models.DateField(null=True, verbose_name="due_date")
+    start_date = models.DateField(null=True, verbose_name="start date")
+    due_date = models.DateField(null=True, verbose_name="due date")
     priority = models.IntegerField(verbose_name="priority")
     status = models.ForeignKey('Status', on_delete=models.CASCADE, verbose_name="status")
 

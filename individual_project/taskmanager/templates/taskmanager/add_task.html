@@ -1,45 +1,75 @@
 {% extends 'base.html' %}
+{% block title %}{{ method }} task {% endblock %}
+{% load bootstrap4 %}
 
-{% block title %} Add a new task {% endblock %}
-
+<!-- Welcome sentence -->
 {% block welcome %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
 {% endblock %}
 
-{% block content %}
-
-<!--To edit a task-->
-{% if edit %}
+<!-- Logout button -->
+{% block logout %}
+<div style="float: right" >
+    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+</div>
+{% endblock %}
 
 <!-- Navigation Bar -->
-<div>
-    <a href="{% url 'projects' %}" target="_self">Projects</a>
-    <a href="{% url 'project' task.project.id %}" target="_self">/ {{ task.project.name }}</a>
-    <a href="{% url 'task' task.id %}" target="_self">/ {{ task.name }}</a>
-    <hr>
-</div>
+{% block nav %}
+{% if method == 'Edit' %}
+<!-- Case 1: To edit a task -->
+<nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="{% url 'projects' %}" target="_self">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'project' task.project.id %}" target="_self">{{ task.project.name }}</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'task' task.id %}" target="_self">{{ task.name }}</a>
+        </li>
+    </ul>
+</nav>
 
+{% elif method == 'Add' %}
+<!-- Case 2: To add a new task -->
+<nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="{% url 'projects' %}" target="_self">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'project' project_get.id %}" target="_self">{{ project_get.name }}</a>
+        </li>
+    </ul>
+</nav>
+
+{% endif %}
+{% endblock %}
+
+<!-- Page content -->
+{% block content %}
+{% if method == 'Edit' %}
+<!-- Case 1: To edit a task -->
 <h1>{{ task.project }}</h1>
 <h3>Edit the task</h3>
-
 <form action="{% url 'edit_task' task.id %}" method='post'>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Save</button>
+    {% bootstrap_form form layout='horizontal' %}
+    <input class="btn btn-primary" type="submit" value="Save">
+    <a href="{% url 'del_task' task.id %}" class="btn btn-danger" role="button">Delete</a>
 </form>
 
-<!--To add a new task-->
-{% else %}
-
-<p><strong>Add a new task!</strong></p>
-
-<form action="{% url 'add_task' %}" method='post'>
+{% elif method == 'Add' %}
+<!-- Case 2: To add a new task -->
+<p><strong>Add a new task</strong></p>
+<form action="{% url 'add_task' project_get.id %}" method='post' class="form-horizontal">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Save</button>
+    {% bootstrap_form form layout='horizontal' %}
+    <input class="btn btn-primary" type="submit" value="Save">
 </form>
 
 {% endif %}
-
 {% endblock %}

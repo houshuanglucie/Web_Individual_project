@@ -2,21 +2,15 @@ from django import forms
 from .models import Journal, Task
 
 
-class LoginForm(forms.Form):
-    username = forms.CharField(label="Nom d'utilisateur", max_length=30)
-    password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput)
-
-
 class JournalForm(forms.ModelForm):
     class Meta:
         model = Journal
-        fields = ['date', 'entry', 'author', 'task']
+        exclude = ['task']
+        fields = ['date', 'entry', 'author']
 
 
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['project', 'name', 'description', 'assignee', 'start_date', 'due_date', 'priority', 'status']
-
-
-
+        exclude = ['project']
+        fields = ['name', 'description', 'assignee', 'start_date', 'due_date', 'priority', 'status']

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
 {% block title %} Projects {% endblock %}
 
+<!-- Welcome sentence -->
 {% block welcome %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
@@ -17,17 +17,20 @@
 </div>
 {% endblock %}
 
-
-{% block content %}
-
 <!-- Navigation Bar -->
-<div>
-    <a href="{% url 'projects' %}" target="_self">Projects</a>
-    <hr>
-</div>
+{% block nav %}
+<nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="{% url 'projects' %}" target="_self">Projects</a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}
 
+<!-- Page content -->
+{% block content %}
 <h1>Projects</h1>
-
 <!-- List of all projects of this user -->
 <table class="table table-hover">
     {% for project in project_list %}

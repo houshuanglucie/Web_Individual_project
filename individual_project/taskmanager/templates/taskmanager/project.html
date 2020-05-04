@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
 {% block title %} Project {% endblock %}
 
+<!-- Welcome sentence -->
 {% block welcome %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
@@ -14,23 +14,29 @@
 </div>
 {% endblock %}
 
-
-{% block content %}
-
 <!-- Navigation Bar -->
-<div>
-    <a href="{% url 'projects' %}" target="_self">Projects</a>
-    <a href="{% url 'project' project_get.id %}" target="_self">/ {{ project_get.name }}</a>
-    <hr>
-</div>
+{% block nav %}
+<nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="{% url 'projects' %}" target="_self">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'project' project_get.id %}" target="_self">{{ project_get.name }}</a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}
+
+<!-- Page content -->
+{% block content %}
 
 <!-- Button for add a new task -->
 <div style="float: right" >
-    <a href="{% url 'add_task' %}" class="btn btn-primary">Add a task</a>
+    <a href="{% url 'add_task' project_get.id %}" class="btn btn-primary">Add a task</a>
 </div>
 
 <h1>{{ project_get }}</h1>
-
 <!-- List of all tasks in this project -->
 <table class="table table-hover" style="font-size: 18px">
     <thead>

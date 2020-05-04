@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
 {% block title %} Task details {% endblock %}
 
+<!-- Welcome sentence -->
 {% block welcome %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
@@ -14,26 +14,33 @@
 </div>
 {% endblock %}
 
-
-{% block content %}
-
 <!-- Navigation Bar -->
-<div>
-    <a href="{% url 'projects' %}" target="_self">Projects</a>
-    <a href="{% url 'project' task_get.project.id %}" target="_self">/ {{ task_get.project.name }}</a>
-    <a href="{% url 'task' task_get.id %}" target="_self">/ {{ task_get.name }}</a>
-    <hr>
-</div>
+{% block nav %}
+<nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="{% url 'projects' %}" target="_self">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'project' task_get.project.id %}" target="_self">{{ task_get.project.name }}</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'task' task_get.id %}" target="_self">{{ task_get.name }}</a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}
 
 <!-- Button for add a new journal -->
 <div style="float: right" >
-    <a href="{% url 'add_journal' %}" class="btn btn-primary">Add a journal</a>
+    <a href="{% url 'add_journal' task_get.id %}" class="btn btn-primary">Add a journal</a>
 </div>
 
+<!-- Page content -->
+{% block content %}
 <h1>{{ task_get.project }}</h1>
 <h3>{{ task_get }}</h3>
 <p>Description : {{ task_get.description }}</p>
-
 <!-- List of details of this task -->
 <table class="table">
     <div>
@@ -65,11 +72,10 @@
 <!-- List of historic journal -->
 <table class="table">
     <p><b>History</b></p>
-
     <div>
     {% for journal in journal_list %}
         <tr>
-            <td>
+            <td style="text-transform: capitalize">
                 <span class="badge badge-primary">{{ journal.author.first_name }} {{ journal.author.last_name }}</span>
             </td>
             <td style="font-style: italic">
@@ -80,7 +86,6 @@
             </td>
         </tr>
     </div>
-
     {% empty %}
         <div>
             <p>No history in the task</p>
