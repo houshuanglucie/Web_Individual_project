@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Project {% endblock %}
 
-<!-- Logout button -->
+<!-- Welcome sentence -->
 {% block logout %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+
+<!-- Logout button -->
 <div style="float: right" >
     <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
@@ -18,7 +20,7 @@
             <a href="{% url 'projects' %}" target="_self">Projects</a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'project' project_get.id %}" target="_self">{{ project_get.name }}</a>
+            <a href="{% url 'project' project_get.id %}" target="_self">{{ project_get }}</a>
         </li>
     </ul>
 </nav>
@@ -54,22 +56,19 @@
                 <span class="badge badge-primary">{{ task.assignee.first_name }} {{ task.assignee.last_name }}</span>
             </td>
             <td style="font-style: italic">
-                <p>{{ task.start_date }}</p>
+                <p>{{ task.start_date|date:"d M Y" }}</p>
             </td>
             <td style="font-style: italic">
-                <p>{{ task.due_date }}</p>
+                <p>{{ task.due_date|date:"d M Y" }}</p>
             </td>
             <td>
-<!--                <a href="{% url 'edit_task' task.id %}" target="_self">-->
-<!--                    <span class="glyphicon glyphicon-edit"></span>-->
-<!--                </a>-->
                 <a href="{% url 'edit_task' task.id %}" target="_self"><i class='fas fa-edit' style='color:dodgerblue'></i></a>
             </td>
         </tr>
     </tbody>
     {% empty %}
         <div>
-            <p>No task in the project</p>
+            <h5>No task in the project</h5>
         </div>
     {% endfor %}
 </table>

@@ -4,7 +4,7 @@ from .forms import JournalForm, TaskForm
 from .models import Project, Task, Journal
 
 
-# list of projects
+# List of projects
 @login_required
 def projects(request):
     project_list = request.user.project_set.all()
@@ -19,7 +19,7 @@ def project(request, project_id):
     return render(request, 'taskmanager/project.html', locals())
 
 
-# Task details view
+# Task details
 @login_required
 def task(request, task_id):
     task_get = get_object_or_404(Task, id=task_id)
@@ -33,11 +33,13 @@ def add_journal(request, task_id):
     task_get = Task.objects.get(id=task_id)
     if request.method != 'POST':
         form = JournalForm()
+        # Filter users belonging to this project for drop-down menu
         form.fields['author'].queryset = task_get.project.members
     else:
         form = JournalForm(request.POST)
         if form.is_valid():
             new_journal = form.save(commit=False)
+            # Given the journal's task, can't modified by user
             new_journal.task = task_get
             new_journal.save()
             journal_list = Journal.objects.filter(task=task_get)
@@ -52,16 +54,18 @@ def add_task(request, project_id):
     project_get = Project.objects.get(id=project_id)
     if request.method != 'POST':
         form = TaskForm()
+        # Filter users belonging to this project for drop-down menu
         form.fields['assignee'].queryset = project_get.members
     else:
         form = TaskForm(request.POST)
         if form.is_valid():
             new_task = form.save(commit=False)
+            # Given the task's project, can't modified by user
             new_task.project = project_get
             form.save()
             task_list = Task.objects.filter(project=project_get)
             return render(request, 'taskmanager/project.html', locals())
-    return render(request, 'taskmanager/add_task.html', locals())
+    return render(request, 'taskmanager/modify_task.html', locals())
 
 
 # Edit a task
@@ -72,17 +76,19 @@ def edit_task(request, task_id):
     project_get = task_before.project
     if request.method != 'POST':
         form = TaskForm(instance=task_before)
+        # Filter users belonging to this project for drop-down menu
         form.fields['assignee'].queryset = project_get.members
     else:
         form = TaskForm(data=request.POST, instance=task_before)
         if form.is_valid():
             task_after = form.save(commit=False)
+            # Given the task's project, can't modified by user
             task_after.project = project_get
             task_after.save()
             task_list = Task.objects.filter(project=project_get)
             return render(request, 'taskmanager/project.html', locals())
-    context = {'form': form, 'task': task_before, 'method': method}
-    return render(request, 'taskmanager/add_task.html', context)
+    context = {'form': form, 'task': task_before, 'project_get': project_get, 'method': method}
+    return render(request, 'taskmanager/modify_task.html', context)
 
 
 # Delete a task

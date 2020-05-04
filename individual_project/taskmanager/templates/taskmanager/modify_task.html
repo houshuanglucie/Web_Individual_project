@@ -2,10 +2,12 @@
 {% block title %}{{ method }} task {% endblock %}
 {% load bootstrap4 %}
 
-<!-- Logout button -->
+<!-- Welcome sentence -->
 {% block logout %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+
+<!-- Logout button -->
 <div style="float: right" >
     <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
@@ -13,15 +15,16 @@
 
 <!-- Navigation Bar -->
 {% block nav %}
+
+<!-- Nav bar Case 1: To edit a task -->
 {% if method == 'Edit' %}
-<!-- Case 1: To edit a task -->
 <nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a href="{% url 'projects' %}" target="_self">Projects</a>
         </li>
         <li class="nav-item">
-            <a href="{% url 'project' task.project.id %}" target="_self">{{ task.project.name }}</a>
+            <a href="{% url 'project' task.project.id %}" target="_self">{{ task.project }}</a>
         </li>
         <li class="nav-item">
             <a href="{% url 'task' task.id %}" target="_self">{{ task.name }}</a>
@@ -29,8 +32,8 @@
     </ul>
 </nav>
 
+<!-- Nav bar Case 2: To add a new task -->
 {% elif method == 'Add' %}
-<!-- Case 2: To add a new task -->
 <nav class="navbar navbar-expand-sm" style="background-color:#e9ecef">
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -47,20 +50,22 @@
 
 <!-- Page content -->
 {% block content %}
+<h1>{{ project_get }}</h1>
+
+<!-- Content Case 1: To edit a task -->
 {% if method == 'Edit' %}
-<!-- Case 1: To edit a task -->
-<h1>{{ task.project }}</h1>
-<h3>Edit the task</h3>
+<h3>>> Edit the task</h3>
 <form action="{% url 'edit_task' task.id %}" method='post'>
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}
     <input class="btn btn-primary" type="submit" value="Save">
+    <!-- Delete button to delete this task -->
     <a href="{% url 'del_task' task.id %}" class="btn btn-danger" role="button">Delete</a>
 </form>
 
+<!-- Content Case 2: To add a new task -->
 {% elif method == 'Add' %}
-<!-- Case 2: To add a new task -->
-<h3>Add a new task</h3>
+<h3>>> Add a new task</h3>
 <form action="{% url 'add_task' project_get.id %}" method='post' class="form-horizontal">
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}

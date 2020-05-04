@@ -2,8 +2,9 @@
 {% block title %} Connection {% endblock %}
 {% block content %}
 
+<!-- Login error information -->
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<h5 style="color: red">Your username and password didn't match. Please try again.</h5>
 {% endif %}
 
 {% if next %}

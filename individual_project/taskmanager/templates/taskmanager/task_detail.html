@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Task details {% endblock %}
 
-<!-- Logout button -->
+<!-- Welcome sentence -->
 {% block logout %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+
+<!-- Logout button -->
 <div style="float: right" >
     <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
@@ -35,9 +37,11 @@
     <a href="{% url 'add_journal' task_get.id %}"><i class='fas fa-edit' style='font-size:40px; color:dodgerblue'></i></a>
 </div>
 
+<!-- Subtitle -->
 <h1>{{ task_get.project }}</h1>
 <h3>{{ task_get }}</h3>
 <p>Description : {{ task_get.description }}</p>
+
 <!-- List of details of this task -->
 <table class="table">
     <div>
@@ -49,11 +53,11 @@
         </tr>
         <tr>
             <td><b>Start date</b></td>
-            <td style="font-style: italic">{{ task_get.start_date }}</td>
+            <td style="font-style: italic">{{ task_get.start_date|date:"d M Y" }}</td>
         </tr>
         <tr>
             <td><b>Due date</b></td>
-            <td style="font-style: italic">{{ task_get.due_date }}</td>
+            <td style="font-style: italic">{{ task_get.due_date|date:"d M Y" }}</td>
         </tr>
         <tr>
             <td><b>Status</b></td>
@@ -76,7 +80,7 @@
                 <span class="badge badge-primary">{{ journal.author.first_name }} {{ journal.author.last_name }}</span>
             </td>
             <td style="font-style: italic">
-                <p>{{ journal.date }}</p>
+                <p>{{ journal.date|date:"d M Y H:i" }}</p>
             </td>
             <td>
                 <p>{{ journal.entry }}</p>

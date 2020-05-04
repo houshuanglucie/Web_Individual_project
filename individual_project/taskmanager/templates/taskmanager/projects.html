@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Projects {% endblock %}
 
-<!-- Logout button -->
+<!-- Welcome sentence -->
 {% block logout %}
 <hr>
 <p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
+
+<!-- Logout button -->
 <div style="float: right" >
     <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
@@ -24,19 +26,20 @@
 <!-- Page content -->
 {% block content %}
 <h1>Projects</h1>
+
 <!-- List of all projects of this user -->
 <table class="table table-hover">
     {% for project in project_list %}
     <tbody>
-    <tr>
-        <td>
-            <a href="{% url 'project' project.id %}" target="_self">{{ project.name }}</a>
-        </td>
-    </tr>
+        <tr>
+            <td>
+                <a href="{% url 'project' project.id %}" target="_self">{{ project.name }}</a>
+            </td>
+        </tr>
     </tbody>
     {% empty %}
         <tr>
-            <p>No project in your workspace</p>
+            <h5>No project in your workspace</h5>
         </tr>
     {% endfor %}
 </table>

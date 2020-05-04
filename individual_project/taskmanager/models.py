@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import django.utils.timezone as timezone
 
 
 class Project(models.Model):
@@ -32,7 +33,7 @@ class Task(models.Model):
 
 
 class Journal(models.Model):
-    date = models.DateField(null=True, verbose_name="date")
+    date = models.DateTimeField(default=timezone.now, null=True, verbose_name="date")
     entry = models.CharField(max_length=300, verbose_name="entry")
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name="author")
     task = models.ForeignKey('Task', on_delete=models.CASCADE, verbose_name="task")
