@@ -1,19 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Projects {% endblock %}
 
-<!-- Welcome sentence -->
-{% block welcome %}
-<hr>
-<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
-{% endblock %}
-
 <!-- Logout button -->
 {% block logout %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
 <div style="float: right" >
-<!--    <a href="/accounts/logout">-->
-<!--        <span class="glyphicon glyphicon-log-out" style="color: rgb(14, 106, 194)"></span>-->
-<!--    </a>-->
-    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+    <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
 {% endblock %}
 

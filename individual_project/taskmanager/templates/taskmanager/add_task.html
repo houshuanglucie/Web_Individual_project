@@ -2,16 +2,12 @@
 {% block title %}{{ method }} task {% endblock %}
 {% load bootstrap4 %}
 
-<!-- Welcome sentence -->
-{% block welcome %}
-<hr>
-<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
-{% endblock %}
-
 <!-- Logout button -->
 {% block logout %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
 <div style="float: right" >
-    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+    <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
 {% endblock %}
 
@@ -64,7 +60,7 @@
 
 {% elif method == 'Add' %}
 <!-- Case 2: To add a new task -->
-<p><strong>Add a new task</strong></p>
+<h3>Add a new task</h3>
 <form action="{% url 'add_task' project_get.id %}" method='post' class="form-horizontal">
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}

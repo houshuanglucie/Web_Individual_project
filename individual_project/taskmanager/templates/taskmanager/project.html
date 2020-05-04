@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Project {% endblock %}
 
-<!-- Welcome sentence -->
-{% block welcome %}
-<hr>
-<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
-{% endblock %}
-
 <!-- Logout button -->
 {% block logout %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
 <div style="float: right" >
-    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+    <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
 {% endblock %}
 
@@ -33,7 +29,7 @@
 
 <!-- Button for add a new task -->
 <div style="float: right" >
-    <a href="{% url 'add_task' project_get.id %}" class="btn btn-primary">Add a task</a>
+    <a href="{% url 'add_task' project_get.id %}"><i class='fas fa-plus-circle' style='font-size:40px; color:dodgerblue'></i></a>
 </div>
 
 <h1>{{ project_get }}</h1>
@@ -67,7 +63,7 @@
 <!--                <a href="{% url 'edit_task' task.id %}" target="_self">-->
 <!--                    <span class="glyphicon glyphicon-edit"></span>-->
 <!--                </a>-->
-                <a href="{% url 'edit_task' task.id %}" target="_self">Edit</a>
+                <a href="{% url 'edit_task' task.id %}" target="_self"><i class='fas fa-edit' style='color:dodgerblue'></i></a>
             </td>
         </tr>
     </tbody>

@@ -2,16 +2,12 @@
 {% block title %} Add journal {% endblock %}
 {% load bootstrap4 %}
 
-<!-- Welcome sentence -->
-{% block welcome %}
-<hr>
-<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
-{% endblock %}
-
 <!-- Logout button -->
 {% block logout %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
 <div style="float: right" >
-    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+    <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
 {% endblock %}
 
@@ -34,7 +30,7 @@
 
 <!-- Page content -->
 {% block content %}
-<p>Add a new journal</p>
+<h3>Add a new journal</h3>
 <form action="{% url 'add_journal' task_get.id %}" method='post'>
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}

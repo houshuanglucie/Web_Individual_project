@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Task details {% endblock %}
 
-<!-- Welcome sentence -->
-{% block welcome %}
-<hr>
-<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
-{% endblock %}
-
 <!-- Logout button -->
 {% block logout %}
+<hr>
+<p style="text-transform: capitalize">Welcome {{ user.first_name }} {{ user.last_name }}</p>
 <div style="float: right" >
-    <a href="/accounts/logout" class="btn btn-primary">Logout</a>
+    <a href="/accounts/logout"><i class='fas fa-sign-out-alt' style='font-size:50px; color:dodgerblue'></i></a>
 </div>
 {% endblock %}
 
@@ -31,13 +27,14 @@
 </nav>
 {% endblock %}
 
-<!-- Button for add a new journal -->
-<div style="float: right" >
-    <a href="{% url 'add_journal' task_get.id %}" class="btn btn-primary">Add a journal</a>
-</div>
-
 <!-- Page content -->
 {% block content %}
+
+<!-- Button for add a new journal -->
+<div style="float: right" >
+    <a href="{% url 'add_journal' task_get.id %}"><i class='fas fa-edit' style='font-size:40px; color:dodgerblue'></i></a>
+</div>
+
 <h1>{{ task_get.project }}</h1>
 <h3>{{ task_get }}</h3>
 <p>Description : {{ task_get.description }}</p>

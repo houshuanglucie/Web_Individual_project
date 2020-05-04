@@ -24,7 +24,7 @@ class Task(models.Model):
     assignee = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name="assignee")
     start_date = models.DateField(null=True, verbose_name="start date")
     due_date = models.DateField(null=True, verbose_name="due date")
-    priority = models.IntegerField(verbose_name="priority")
+    priority = models.PositiveIntegerField(verbose_name="priority")
     status = models.ForeignKey('Status', on_delete=models.CASCADE, verbose_name="status")
 
     def __str__(self):
