@@ -12,21 +12,21 @@ class JournalForm(forms.ModelForm):
 
 # Form for task
 class TaskForm(forms.ModelForm):
-    # Set the default date format "jj/mm/aaaa"
+    # Set the default date format "aaaa-mm-jj"
     start_date = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'placeholder': "jj/mm/aaaa",
+                'placeholder': "aaaa-mm-jj",
                 "class": 'form-control'
             }
         )
     )
 
-    # Set the default date format "jj/mm/aaaa"
+    # Set the default date format "aaaa-mm-jj"
     due_date = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'placeholder': "jj/mm/aaaa",
+                'placeholder': "aaaa-mm-jj",
                 "class": 'form-control'
             }
         )
