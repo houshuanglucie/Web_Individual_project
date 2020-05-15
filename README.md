@@ -22,7 +22,7 @@
 <br>
 
 #### *Utilisateurs enregistrés dans la base db.json*
-`houshuang` : *`Eipie3uxooch`* *(superuser)*  
-`l.hou` : *`luciepassword`*
-`q.liang` : *`qianqianpassword`*
-`d.leconte` : *`davidpassword`*
+1. `houshuang` : *`Eipie3uxooch`* *(superuser)*  
+2. `l.hou` : *`luciepassword`*
+3. `q.liang` : *`qianqianpassword`*
+4. `d.leconte` : *`davidpassword`*
