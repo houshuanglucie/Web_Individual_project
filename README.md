@@ -1,6 +1,6 @@
 # Gestionnaire de projets
 
-*Individual project of AWNG module - Avril / Mai 2020*
+*Individual project of AWNG module (Application Web Nouvelle Géneration) - Avril / Mai 2020*
 
 ## Contenu implémenté
 - Page d'authentification
